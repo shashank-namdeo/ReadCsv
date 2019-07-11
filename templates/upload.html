@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<title>CVS File Upload</title>
+</head>
+<body>
+<h2>Select a CSV file to upload</h2>
+<p>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+<form method="post" action="/upload" enctype="multipart/form-data">
+    <dl>
+		<p>
+			Read CSV<input type="file" name="file" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="DB Store">
+	</p>
+</form>
+
+<button onclick = "show()">show</button>
+<button onclick = "clear_div()">Clear</button>
+  <div id="plt"></div>
+  <script > 
+
+  function show(){
+    $.post("/show",function(data, status){
+        $("#plt").html(data);      
+      });
+   }
+
+  function clear_div(){$("#plt").empty(); 
+   }
+
+  </script>
+
+</body>
+</html>
+
+
