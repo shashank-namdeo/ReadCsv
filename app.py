@@ -3,17 +3,11 @@ from flask import Flask, flash, request, redirect, render_template
 import sqlite3
 import pandas as pd
 
-
-
-
-UPLOAD_FOLDER = './uploads'
-
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def upload_form():
-	return render_template('upload.html')
+    return render_template('upload.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -54,8 +48,6 @@ def upload_file():
                except Exception as e:
                    print(e)
                    pass
-
-        # Save (commit) the changes
         conn.commit()
 
     return "Scuccessfully Done !!!!!"
@@ -66,7 +58,7 @@ def show_form():
     cnn = sqlite3.connect('APTUDE_TEST.db')
 
     df = pd.read_sql_query("SELECT * FROM stocks", cnn)
-    print(df.to_html)
+
     return render_template("show.html",  data=df.to_html())
 
 
